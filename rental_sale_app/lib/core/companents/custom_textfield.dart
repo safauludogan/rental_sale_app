@@ -1,0 +1,46 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:rental_sale_app/core/constants/color_constant.dart';
+import 'package:rental_sale_app/core/constants/padding_constant.dart';
+
+class CustomTextField extends StatelessWidget {
+  const CustomTextField({
+    this.controller,
+    this.labelText,
+    super.key,
+    this.inputFormatters,
+    this.onChanged,
+    required this.icon,
+    required this.hintText,
+    required this.inputType,
+    required this.action,
+  });
+  final TextEditingController? controller;
+  final String? labelText;
+  final List<TextInputFormatter>? inputFormatters;
+  final Icon icon;
+  final String hintText;
+  final TextInputType inputType;
+  final TextInputAction action;
+  final void Function(String)? onChanged;
+  @override
+  Widget build(BuildContext context) => customField;
+
+  Widget get customField => Padding(
+        padding: PaddingConstant.onlyRight3,
+        child: TextFormField(
+          onChanged: onChanged,
+          inputFormatters: inputFormatters,
+          decoration: InputDecoration(
+            prefixText: 'TL  ', 
+            prefixStyle: TextStyle(color: ColorConstant.textColor),
+            icon: icon,
+            labelText: labelText,
+            hintText: hintText,
+            hintStyle: TextStyle(color: ColorConstant.hintTextColor),
+          ),
+          keyboardType: inputType,
+          textInputAction: action,
+        ),
+      );
+}

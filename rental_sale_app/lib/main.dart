@@ -4,6 +4,7 @@ import 'package:rental_sale_app/core/constants/color_constant.dart';
 import 'package:rental_sale_app/feature/home/home_view.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Hive.initFlutter();
   runApp(const MyApp());
 }

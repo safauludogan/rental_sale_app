@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:rental_sale_app/core/companents/custom_tabbar.dart';
+import 'package:rental_sale_app/core/companents/custom_textfield.dart';
 import 'package:rental_sale_app/core/constants/color_constant.dart';
 import 'package:rental_sale_app/core/constants/padding_constant.dart';
 import 'package:rental_sale_app/core/constants/string_constant.dart';
@@ -24,12 +25,7 @@ class _AddListingCarState extends AddListingCarViewModel {
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterDocked,
       floatingActionButton: FloatingActionButton.small(
-        onPressed: () async {
-          if (items?.isNotEmpty ?? false) {
-            cacheManager.addItems(items!);
-            print('veriler Kaydedildi.');
-          }
-        },
+        onPressed: saveDataToHive,
         backgroundColor: ColorConstant.floatActionColor,
         child: const Icon(Icons.add),
       ),
@@ -54,13 +50,13 @@ class _AddListingCarState extends AddListingCarViewModel {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Gap(30),
-            _choosedBrand(context),
+            _choosedBrand(),
             const Gap(20),
             carModel(),
             const Gap(20),
-            _choosedCarColor(context),
+            _choosedCarColor(),
             const Gap(20),
-            carModelYear(context),
+            carModelYear(),
             const Gap(20),
             carPrice(),
           ],
@@ -69,28 +65,36 @@ class _AddListingCarState extends AddListingCarViewModel {
     );
   }
 
-  Padding carPrice() {
-    return textFormField(
-        controller: carPriceController,
-        icon: const Icon(Icons.edit),
-        hintText: StringConstant.enterCarPrice,
-        inputType: TextInputType.number,
-        inputFormatters: [
-          FilteringTextInputFormatter.digitsOnly,
-          CurrencyInputFormatter(),
-        ],
-        action: TextInputAction.done);
+  Widget carPrice() {
+    return CustomTextField(
+      controller: carPriceController,
+      icon: const Icon(Icons.edit),
+      hintText: StringConstant.enterCarPrice,
+      inputType: TextInputType.number,
+      inputFormatters: [
+        FilteringTextInputFormatter.digitsOnly,
+        CurrencyInputFormatter(),
+      ],
+      action: TextInputAction.done,
+      onChanged: (p0) {
+        myCarModel = myCarModel.copyWith(price: p0);
+      },
+    );
   }
 
-  Padding carModel() {
-    return textFormField(
-        icon: const Icon(Icons.mode_outlined),
-        hintText: StringConstant.carModelEntry,
-        inputType: TextInputType.name,
-        action: TextInputAction.next);
+  Widget carModel() {
+    return CustomTextField(
+      icon: const Icon(Icons.mode_outlined),
+      hintText: StringConstant.carModelEntry,
+      inputType: TextInputType.name,
+      action: TextInputAction.next,
+      onChanged: (value) {
+        myCarModel = myCarModel.copyWith(model: value);
+      },
+    );
   }
 
-  Row _choosedCarColor(BuildContext context) {
+  Row _choosedCarColor() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -100,11 +104,11 @@ class _AddListingCarState extends AddListingCarViewModel {
               ?.copyWith(color: ColorConstant.textColor),
         ),
         dropdownButton(
-          list: AddListingCarViewModel.carColor,
-          choosedValue: choosedColor,
+          list: carColor,
+          choosedValue: myCarModel.color ?? '',
           onItemSelected: (String value) {
             setState(() {
-              choosedColor = value;
+              myCarModel = myCarModel.copyWith(color: value);
             });
           },
         )
@@ -112,7 +116,7 @@ class _AddListingCarState extends AddListingCarViewModel {
     );
   }
 
-  Row _choosedBrand(BuildContext context) {
+  Row _choosedBrand() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -122,11 +126,11 @@ class _AddListingCarState extends AddListingCarViewModel {
               ?.copyWith(color: ColorConstant.textColor),
         ),
         dropdownButton(
-          list: AddListingCarViewModel.brandList,
-          choosedValue: choosedBrand,
+          list: brandList,
+          choosedValue: myCarModel.brand ?? '',
           onItemSelected: (String value) {
             setState(() {
-              choosedBrand = value;
+              myCarModel = myCarModel.copyWith(brand: value);
             });
           },
         )
@@ -134,8 +138,8 @@ class _AddListingCarState extends AddListingCarViewModel {
     );
   }
 
-  Row carModelYear(BuildContext context) {
-    showDialog(Widget child) {
+  Row carModelYear() {
+    void showDialog(Widget child) {
       showCupertinoModalPopup<void>(
         context: context,
         builder: (BuildContext context) => Container(
@@ -166,7 +170,10 @@ class _AddListingCarState extends AddListingCarViewModel {
               initialDateTime: date,
               mode: CupertinoDatePickerMode.monthYear,
               onDateTimeChanged: (DateTime newDate) {
-                setState(() => date = newDate);
+                setState(
+                  () => date = newDate,
+                );
+                myCarModel = myCarModel.copyWith(year: newDate.year);
               },
             ),
           ),

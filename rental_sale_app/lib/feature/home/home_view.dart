@@ -44,7 +44,7 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Card _cards(context,
+  Card _cards(BuildContext context,
       {required String title,
       required String subtitle,
       required Widget widget}) {

@@ -1,3 +1,3 @@
 class HiveConstant {
-  static const userTypeId = 0;
+  static const userTypeId = 100;
 }

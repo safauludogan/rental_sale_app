@@ -4,27 +4,28 @@ import 'package:rental_sale_app/feature/add_listing/add_listing_car/model/car_mo
 import 'package:rental_sale_app/product/cache_manager.dart';
 
 class CarCacheManager extends ICacheManager<CarModel> {
-  CarCacheManager(super.key);
+  CarCacheManager(super.model);
 
   @override
-  void addItems(List<CarModel> items) async {
+  Future<void> addItems(List<CarModel> items) async {
     await box?.addAll(items);
   }
 
   @override
-  void putItems(List<CarModel> items) async {
+  Future<void> putItems(List<CarModel> items) async {
     return await box
         ?.putAll(Map.fromEntries(items.map((e) => MapEntry(e.brand, e))));
   }
 
   @override
-  getItem(String key) => box?.get(key);
+  CarModel? getItem(String id) => box?.get(id);
 
   @override
   List<CarModel>? getValues() => box?.values.toList();
 
   @override
-  putItem(String key, item) => box?.get(key);
+  Future<void> putItem(String key, CarModel model) async =>
+      box?.put(key, model);
 
   @override
   void registerAdapters() {
@@ -34,5 +35,5 @@ class CarCacheManager extends ICacheManager<CarModel> {
   }
 
   @override
-  Future<void> removeItem(String item) async => await box?.delete(key);
+  Future<void> removeItem(String item) async => await box?.delete(item);
 }
