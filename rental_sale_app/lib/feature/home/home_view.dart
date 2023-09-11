@@ -13,26 +13,31 @@ class HomeView extends StatelessWidget {
     return Scaffold(
       backgroundColor: ColorConstant.backgroundColor,
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
         children: [
           //    _titleText(context),
           const SizedBox(
             height: 20,
           ),
-          _cards(context,
-              title: "Satış ve Kiralama",
-              subtitle: "Araç,Bisiklet ve Motosiklet Kiralama ve Satın alma",
-              widget: const RentalSaleFavoriteView()),
+          _cards(
+            context,
+            title: 'Satış ve Kiralama',
+            subtitle: 'Araç,Bisiklet ve Motosiklet Kiralama ve Satın alma',
+            widget: const RentalSaleFavoriteView(),
+          ),
           _divider(),
-          _cards(context,
-              title: "İlan Ver",
-              subtitle: "Araç,Bisiklet ve Motosiklet",
-              widget: const AddListingHomeView()),
+          _cards(
+            context,
+            title: 'İlan Ver',
+            subtitle: 'Araç,Bisiklet ve Motosiklet',
+            widget: const AddListingHomeView(),
+          ),
           _divider(),
-          _cards(context,
-              title: "Hesabım",
-              subtitle: "İlanlarım,Favorilerim,Sepetim",
-              widget: const MyAccountView()),
+          _cards(
+            context,
+            title: 'Hesabım',
+            subtitle: 'İlanlarım,Favorilerim,Sepetim',
+            widget: const MyAccountView(),
+          ),
         ],
       ),
     );
@@ -44,16 +49,21 @@ class HomeView extends StatelessWidget {
     );
   }
 
-  Card _cards(BuildContext context,
-      {required String title,
-      required String subtitle,
-      required Widget widget}) {
+  Card _cards(
+    BuildContext context, {
+    required String title,
+    required String subtitle,
+    required Widget widget,
+  }) {
     return Card(
       color: ColorConstant.floatActionColor,
       child: ListTile(
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) => widget,
-        )),
+        onTap: () => Navigator.of(context).push(
+          // ignore: inference_failure_on_instance_creation
+          MaterialPageRoute(
+            builder: (context) => widget,
+          ),
+        ),
         leading: Icon(
           Icons.car_rental,
           color: ColorConstant.textColor,

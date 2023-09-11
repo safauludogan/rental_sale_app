@@ -18,13 +18,15 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Rental and Sale',
       theme: ThemeData(
-          floatingActionButtonTheme: FloatingActionButtonThemeData(
-              backgroundColor: ColorConstant.themeColor),
-          appBarTheme: AppBarTheme(color: ColorConstant.themeColor),
-          bottomAppBarTheme: BottomAppBarTheme(
-            color: ColorConstant.themeColor,
-            shape: const CircularNotchedRectangle(),
-          )),
+        floatingActionButtonTheme: FloatingActionButtonThemeData(
+          backgroundColor: ColorConstant.themeColor,
+        ),
+        appBarTheme: AppBarTheme(color: ColorConstant.themeColor),
+        bottomAppBarTheme: BottomAppBarTheme(
+          color: ColorConstant.themeColor,
+          shape: const CircularNotchedRectangle(),
+        ),
+      ),
       home: Scaffold(
         appBar: AppBar(
           elevation: 1,

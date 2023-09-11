@@ -12,6 +12,6 @@ abstract class AddListingViewModel extends State<AddListingHomeView> {
       Container(
         color: Colors.blue,
       ),
-    ]);
+    ],);
   }
 }

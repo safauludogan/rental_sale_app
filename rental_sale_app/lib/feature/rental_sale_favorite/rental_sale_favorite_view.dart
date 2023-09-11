@@ -19,15 +19,17 @@ class _RentalSaleFavoriteState extends State<RentalSaleFavoriteView> {
           shape: const CircularNotchedRectangle(),
           child: customTabbar(),
         ),
-        body: TabBarView(children: [
-          const CarScaffold(),
-          Container(
-            color: Colors.blue,
-          ),
-          Container(
-            color: Colors.green,
-          ),
-        ]),
+        body: TabBarView(
+          children: [
+            const CarScaffold(),
+            Container(
+              color: Colors.blue,
+            ),
+            Container(
+              color: Colors.green,
+            ),
+          ],
+        ),
       ),
     );
   }

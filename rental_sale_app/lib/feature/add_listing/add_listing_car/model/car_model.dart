@@ -60,6 +60,7 @@ class CarModel extends HiveModel<CarModel> {
 
   @override
   String toString() {
+    // ignore: lines_longer_than_80_chars
     return 'CarModel(id: $id, brand: $brand, model: $model, color: $color, price: $price, year: $year)';
   }
 }

@@ -9,5 +9,3 @@ enum CarBrand {
   renaulth,
   fiat
 }
-
-

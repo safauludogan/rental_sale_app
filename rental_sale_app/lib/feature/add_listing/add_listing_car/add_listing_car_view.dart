@@ -1,7 +1,9 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
+import 'package:rental_sale_app/core/companents/custom_date_picker.dart';
+import 'package:rental_sale_app/core/companents/custom_dropdown.dart';
 import 'package:rental_sale_app/core/companents/custom_tabbar.dart';
 import 'package:rental_sale_app/core/companents/custom_textfield.dart';
 import 'package:rental_sale_app/core/constants/color_constant.dart';
@@ -56,12 +58,26 @@ class _AddListingCarState extends AddListingCarViewModel {
             const Gap(20),
             _choosedCarColor(),
             const Gap(20),
-            carModelYear(),
+            _carModelYear(context),
             const Gap(20),
             carPrice(),
           ],
         ),
       ),
+    );
+  }
+
+  Row _carModelYear(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Text(
+          StringConstant.carModelYear,
+          style: context.textTheme.titleMedium
+              ?.copyWith(color: ColorConstant.textColor),
+        ),
+        const CustomDatePicker(),
+      ],
     );
   }
 
@@ -103,15 +119,15 @@ class _AddListingCarState extends AddListingCarViewModel {
           style: context.textTheme.titleMedium
               ?.copyWith(color: ColorConstant.textColor),
         ),
-        dropdownButton(
-          list: carColor,
-          choosedValue: myCarModel.color ?? '',
+        CustomDropDownButton(
+          choosedValue: myCarModel.color ?? colorList.first,
+          list: colorList,
           onItemSelected: (String value) {
             setState(() {
               myCarModel = myCarModel.copyWith(color: value);
             });
           },
-        )
+        ),
       ],
     );
   }
@@ -125,72 +141,19 @@ class _AddListingCarState extends AddListingCarViewModel {
           style: context.textTheme.titleMedium
               ?.copyWith(color: ColorConstant.textColor),
         ),
-        dropdownButton(
+        CustomDropDownButton(
+          choosedValue: myCarModel.brand ?? brandList.first,
           list: brandList,
-          choosedValue: myCarModel.brand ?? '',
           onItemSelected: (String value) {
             setState(() {
               myCarModel = myCarModel.copyWith(brand: value);
             });
           },
-        )
-      ],
-    );
-  }
-
-  Row carModelYear() {
-    void showDialog(Widget child) {
-      showCupertinoModalPopup<void>(
-        context: context,
-        builder: (BuildContext context) => Container(
-          height: 200,
-          padding: const EdgeInsets.only(top: 6.0),
-          margin: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: SafeArea(
-            top: false,
-            child: child,
-          ),
-        ),
-      );
-    }
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          StringConstant.carModelYear,
-          style: context.textTheme.titleMedium
-              ?.copyWith(color: ColorConstant.textColor),
-        ),
-        CupertinoButton(
-          onPressed: () => showDialog(
-            CupertinoDatePicker(
-              initialDateTime: date,
-              mode: CupertinoDatePickerMode.monthYear,
-              onDateTimeChanged: (DateTime newDate) {
-                setState(
-                  () => date = newDate,
-                );
-                myCarModel = myCarModel.copyWith(year: newDate.year);
-              },
-            ),
-          ),
-          child: Text(
-            '${date.year}',
-            style: TextStyle(
-              color: ColorConstant.textColor,
-              fontSize: 22.0,
-            ),
-          ),
         ),
       ],
     );
   }
 }
-
-
 
 /* SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
@@ -212,4 +175,5 @@ class _AddListingCarState extends AddListingCarViewModel {
           ],
         ),
       ),
-    ); */
+    ); 
+    */

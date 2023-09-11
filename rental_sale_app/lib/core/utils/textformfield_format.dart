@@ -13,7 +13,7 @@ class CurrencyInputFormatter extends TextInputFormatter {
 
     final value = double.parse(newValue.text);
 
-    final formatter = NumberFormat.simpleCurrency();
+    final formatter = NumberFormat.simpleCurrency(name: 'TL ');
     final newText = formatter.format(value / 100);
     return newValue.copyWith(
       text: newText,

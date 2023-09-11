@@ -5,21 +5,23 @@ import 'package:rental_sale_app/core/constants/padding_constant.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
+    required this.icon,
+    required this.hintText,
+    required this.inputType,
+    required this.action,
+    this.prefix,
     this.controller,
     this.labelText,
     super.key,
     this.inputFormatters,
     this.onChanged,
-    required this.icon,
-    required this.hintText,
-    required this.inputType,
-    required this.action,
   });
   final TextEditingController? controller;
   final String? labelText;
   final List<TextInputFormatter>? inputFormatters;
   final Icon icon;
   final String hintText;
+  final String? prefix;
   final TextInputType inputType;
   final TextInputAction action;
   final void Function(String)? onChanged;
@@ -32,7 +34,7 @@ class CustomTextField extends StatelessWidget {
           onChanged: onChanged,
           inputFormatters: inputFormatters,
           decoration: InputDecoration(
-            prefixText: 'TL  ', 
+            prefixText: prefix,
             prefixStyle: TextStyle(color: ColorConstant.textColor),
             icon: icon,
             labelText: labelText,
