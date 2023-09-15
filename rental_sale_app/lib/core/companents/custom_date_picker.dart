@@ -2,11 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:rental_sale_app/core/constants/color_constant.dart';
 import 'package:rental_sale_app/core/constants/date_constant.dart';
 import 'package:rental_sale_app/core/constants/padding_constant.dart';
-import 'package:rental_sale_app/feature/add_listing/add_listing_car/model/car_model.dart';
+import 'package:rental_sale_app/feature/add_listing/add_listing_car/model/vehicle_model.dart';
 
 class CustomDatePicker extends StatefulWidget {
   const CustomDatePicker({super.key});
-
   @override
   State<CustomDatePicker> createState() => _CustomDatePickerState();
 }
@@ -15,7 +14,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
   @override
   Widget build(BuildContext context) => customDatePicker;
 
-  CarModel myCarModel = CarModel();
+  VehicleModel myCarModel = VehicleModel();
 
   Widget get customDatePicker => CupertinoButton(
         onPressed: () => showDialog(
@@ -34,7 +33,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
           '${DateConstant.date.year}',
           style: TextStyle(
             color: ColorConstant.textColor,
-            fontSize: 22,
+            fontSize: 20,
           ),
         ),
       );
@@ -44,7 +43,7 @@ class _CustomDatePickerState extends State<CustomDatePicker> {
       context: context,
       builder: (BuildContext context) => Container(
         height: 200,
-        padding: PaddingConstant.onlyTop6,
+        padding: PaddingConstant.onlyTopMid,
         margin: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),

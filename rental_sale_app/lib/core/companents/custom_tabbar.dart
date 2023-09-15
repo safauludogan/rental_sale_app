@@ -12,7 +12,9 @@ enum TabbarItems {
 
 TabBar customTabbar() {
   return TabBar(
+    
     tabs: List.generate(
+      
       TabbarItems.values.length,
       (index) => Tab(
         child: Text(

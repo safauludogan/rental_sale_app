@@ -4,54 +4,51 @@ import 'package:gap/gap.dart';
 import 'package:rental_sale_app/core/companents/custom_date_picker.dart';
 import 'package:rental_sale_app/core/companents/custom_dropdown.dart';
 import 'package:rental_sale_app/core/companents/custom_textfield.dart';
-import 'package:rental_sale_app/core/companents/widgets/baseview.dart';
 import 'package:rental_sale_app/core/constants/color_constant.dart';
 import 'package:rental_sale_app/core/constants/padding_constant.dart';
 import 'package:rental_sale_app/core/constants/string_constant.dart';
 import 'package:rental_sale_app/core/extensions/context_extension.dart';
 import 'package:rental_sale_app/core/utils/textformfield_format.dart';
-import 'package:rental_sale_app/feature/add_listing/add_listing_car/add_listing_car_viewmodel.dart';
+import 'package:rental_sale_app/feature/add_listing/add_listing_motocycle/add_listing_motocycle_viewmodel.dart';
 
-class AddListingCarView extends StatefulWidget {
-  const AddListingCarView({super.key});
+class AddListingMotocycleView extends StatefulWidget {
+  const AddListingMotocycleView({super.key});
 
   @override
-  State<AddListingCarView> createState() => _AddListingCarState();
+  State<AddListingMotocycleView> createState() =>
+      _AddListingMotocycleViewState();
 }
 
-class _AddListingCarState extends AddListingCarViewModel {
+class _AddListingMotocycleViewState extends AddListingMotoCycleViewModel {
   bool isKeyboardOpen = false;
-  @override
-  Widget build(BuildContext context) => _mainBody();
 
-  Widget _mainBody() {
+  @override
+  Widget build(BuildContext context) {
     isKeyboardOpen = MediaQuery.of(context).viewInsets.bottom > 0;
 
-    return BaseView(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: PaddingConstant.scaffoldPadding,
-            child: SizedBox(
-              height: isKeyboardOpen
-                  ? MediaQuery.of(context).size.height
-                  : MediaQuery.of(context).size.height -
-                      (kToolbarHeight + kBottomNavigationBarHeight + 20),
-              child: Column(
-                children: [
-                  const Gap(30),
-                  _choosedBrand(),
-                  const Gap(20),
-                  carModelText(),
-                  const Gap(20),
-                  _choosedCarColor(),
-                  const Gap(20),
-                  _carModelYear(context),
-                  const Gap(20),
-                  carPrice(),
-                ],
-              ),
+    return Scaffold(
+      resizeToAvoidBottomInset: false,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: PaddingConstant.scaffoldPadding,
+          child: SizedBox(
+            height: isKeyboardOpen
+                ? MediaQuery.of(context).size.height
+                : MediaQuery.of(context).size.height -
+                    (kToolbarHeight + kBottomNavigationBarHeight + 100),
+            child: Column(
+              children: [
+                const Gap(30),
+                _motocycleBrand(),
+                const Gap(20),
+                _motocycleModel(),
+                const Gap(20),
+                _choosedCarColor(),
+                const Gap(20),
+                _motocycleModelYear(),
+                const Gap(20),
+                _motocyclePrice(),
+              ],
             ),
           ),
         ),
@@ -59,7 +56,7 @@ class _AddListingCarState extends AddListingCarViewModel {
     );
   }
 
-  Container _choosedBrand() {
+  Container _motocycleBrand() {
     return Container(
       padding: PaddingConstant.paddinAllLow,
       decoration: BoxDecoration(border: Border.all()),
@@ -67,27 +64,27 @@ class _AddListingCarState extends AddListingCarViewModel {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            StringConstant.carBrand,
+            StringConstant.motocycleBrand,
             style: context.textTheme.titleMedium
                 ?.copyWith(color: ColorConstant.textColor),
           ),
           CustomDropDownButton(
-            choosedValue: vehicleModel.brand ?? brandList.first,
             list: brandList,
             onItemSelected: (String value) {
               setState(() {
                 vehicleModel = vehicleModel.copyWith(brand: value);
               });
             },
+            choosedValue: brandList.first,
           ),
         ],
       ),
     );
   }
 
-  Widget carModelText() {
+  Widget _motocycleModel() {
     return CustomTextField(
-      hintText: StringConstant.carModelEntry,
+      hintText: StringConstant.motocycleModelEntry,
       inputType: TextInputType.name,
       action: TextInputAction.next,
       onChanged: (value) {
@@ -104,7 +101,7 @@ class _AddListingCarState extends AddListingCarViewModel {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            StringConstant.carColor,
+            StringConstant.motocycleColor,
             style: context.textTheme.titleMedium
                 ?.copyWith(color: ColorConstant.textColor),
           ),
@@ -122,27 +119,26 @@ class _AddListingCarState extends AddListingCarViewModel {
     );
   }
 
-  Widget _carModelYear(BuildContext context) {
+  Widget _motocycleModelYear() {
     return Container(
       decoration: BoxDecoration(border: Border.all()),
-      padding: PaddingConstant.paddinAllLow,
+      padding: const EdgeInsets.all(2),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            StringConstant.carModelYear,
+            StringConstant.motocycleModelYear,
             style: context.textTheme.titleMedium
                 ?.copyWith(color: ColorConstant.textColor),
           ),
-           CustomDatePicker(),
+          const CustomDatePicker(),
         ],
       ),
     );
   }
 
-  Widget carPrice() {
+  Widget _motocyclePrice() {
     return CustomTextField(
-      controller: carPriceController,
       hintText: StringConstant.enterCarPrice,
       inputType: TextInputType.number,
       inputFormatters: [

@@ -1,17 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:rental_sale_app/feature/add_listing/add_listing_bicycle/add_listing_bicycle_view.dart';
 import 'package:rental_sale_app/feature/add_listing/add_listing_car/add_listing_car_view.dart';
-import 'package:rental_sale_app/feature/add_listing/add_listing_home/add_listing_home_view.dart';
+import 'package:rental_sale_app/feature/add_listing/add_listing_motocycle/add_listing_motocycle_view.dart';
 
-abstract class AddListingViewModel extends State<AddListingHomeView> {
+class AddListingViewModel {
+  AddListingViewModel._();
+
+  static final AddListingViewModel _instance = AddListingViewModel._();
+
+  static AddListingViewModel get instance => _instance;
+
+  VoidCallback? whenComplate;
+
   TabBarView mainBody() {
-    return TabBarView(children: [
-      const AddListingCarView(),
-      Container(
-        color: Colors.green,
-      ),
-      Container(
-        color: Colors.blue,
-      ),
-    ],);
+    return const TabBarView(
+      children: [
+        AddListingCarView(),
+        AddListingMotocycleView(),
+        AddListingBicycleView()
+      ],
+    );
   }
 }

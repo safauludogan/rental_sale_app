@@ -1,1 +1,1 @@
-enum CarColor { white, black, grey, silver, red, blue, brown, green }
+enum EnumColor { beyaz, siyah, gri, gumus, kirmizi, mavi, kahverengi, yesil }

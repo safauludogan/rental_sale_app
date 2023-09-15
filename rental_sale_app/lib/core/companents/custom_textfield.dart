@@ -5,10 +5,10 @@ import 'package:rental_sale_app/core/constants/padding_constant.dart';
 
 class CustomTextField extends StatelessWidget {
   const CustomTextField({
-    required this.icon,
     required this.hintText,
     required this.inputType,
     required this.action,
+    this.icon,
     this.prefix,
     this.controller,
     this.labelText,
@@ -19,7 +19,7 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final String? labelText;
   final List<TextInputFormatter>? inputFormatters;
-  final Icon icon;
+  final Icon? icon;
   final String hintText;
   final String? prefix;
   final TextInputType inputType;
@@ -29,11 +29,12 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) => customField;
 
   Widget get customField => Padding(
-        padding: PaddingConstant.onlyRight3,
+        padding: PaddingConstant.onlyRightLow,
         child: TextFormField(
           onChanged: onChanged,
           inputFormatters: inputFormatters,
           decoration: InputDecoration(
+            border: const OutlineInputBorder(),
             prefixText: prefix,
             prefixStyle: TextStyle(color: ColorConstant.textColor),
             icon: icon,

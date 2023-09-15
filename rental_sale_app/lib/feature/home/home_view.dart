@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rental_sale_app/core/constants/color_constant.dart';
+import 'package:rental_sale_app/core/constants/string_constant.dart';
 import 'package:rental_sale_app/feature/add_listing/add_listing_home/add_listing_home_view.dart';
 
 import 'package:rental_sale_app/feature/my_account/my_account_view.dart';
-import 'package:rental_sale_app/feature/rental_sale_favorite/rental_sale_favorite_view.dart';
+import 'package:rental_sale_app/feature/rental_sale_favorite/rental_sale_home/rental_sale_favorite_view.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -20,22 +21,22 @@ class HomeView extends StatelessWidget {
           ),
           _cards(
             context,
-            title: 'Satış ve Kiralama',
-            subtitle: 'Araç,Bisiklet ve Motosiklet Kiralama ve Satın alma',
+            title: StringConstant.salesRental,
+            subtitle: StringConstant.salesRentalDescription,
             widget: const RentalSaleFavoriteView(),
           ),
           _divider(),
           _cards(
             context,
-            title: 'İlan Ver',
-            subtitle: 'Araç,Bisiklet ve Motosiklet',
+            title: StringConstant.addListing,
+            subtitle: StringConstant.addListingDescription,
             widget: const AddListingHomeView(),
           ),
           _divider(),
           _cards(
             context,
-            title: 'Hesabım',
-            subtitle: 'İlanlarım,Favorilerim,Sepetim',
+            title: StringConstant.myAccount,
+            subtitle: StringConstant.myAccountDescription,
             widget: const MyAccountView(),
           ),
         ],
